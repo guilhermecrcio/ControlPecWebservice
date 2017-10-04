@@ -1,1 +1,1 @@
-kill `cat /var/run/flagticket-webservice.pid`
+kill `cat /var/run/controlpec-webservice.pid`
