@@ -24,7 +24,7 @@ class Usuario < ApplicationRecord
   
   def criptografar_senha
     if !self.senha.nil?
-      self.senha = Digest::SHA256.hexdigest self.senha
+      self.senha = (Digest::SHA256.hexdigest self.senha)
     end
   end
   

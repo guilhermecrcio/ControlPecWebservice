@@ -19,7 +19,10 @@ class SessaoController < ApplicationController
       return render json: { erros: erros }, status: 400
     end
     
-    usuario = Usuario.find_by(email: data["email"], senha: Digest::SHA256.hexdigest(data["senha"]))
+    usuario = Usuario.find_by(
+      email: data["email"],
+      senha: (Digest::SHA256.hexdigest data["senha"])
+    )
     
     if usuario.blank?
       erros << "Usuário inválido"

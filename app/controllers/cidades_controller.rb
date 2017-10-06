@@ -1,7 +1,7 @@
 class CidadesController < ApplicationController
   
   def filtroPorUf
-    cidades = Cidade.includes(:estado).joins(:estado).all.where("estados.uf = ?", params[:uf].upcase)
+    cidades = Cidade.includes(:estado).joins(:estado).all.where("estados.uf = ?", params[:uf].upcase).order("cidades.nome ASC")
     
     if cidades.blank?
       head :not_found
