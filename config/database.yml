@@ -19,5 +19,5 @@ test:
 production:
   <<: *default
   database: controlpec
-  username: root
+  username: controlpec
   password: <%= ENV['CONTROLPEC_DATABASE_PASSWORD'] %>
