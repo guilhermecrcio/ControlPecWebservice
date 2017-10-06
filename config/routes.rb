@@ -1,3 +1,13 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  
+  #Cidades
+  get "/cidades/uf/:uf" => "cidades#filtroPorUf"
+  
+  #Admin
+  post "/clientes" => "clientes#novo"
+  post "/usuarios" => "usuarios#novo"
+  
+  #Usuário
+  post "/login/web" => "sessao#login"
+  
 end

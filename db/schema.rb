@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 20171003235047) do
     t.text "nome", null: false
     t.float "latitude", null: false
     t.float "longitude", null: false
-    t.bigint "estados_id", null: false
-    t.index ["estados_id"], name: "index_cidades_on_estados_id"
+    t.bigint "estado_id", null: false
+    t.index ["estado_id"], name: "index_cidades_on_estado_id"
   end
 
   create_table "clientes", force: :cascade do |t|
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20171003235047) do
     t.text "nome_fantasia"
     t.string "cpf", limit: 11
     t.string "cnpj", limit: 14
-    t.bigint "cidades_id", null: false
+    t.bigint "cidade_id", null: false
     t.text "endereco", null: false
     t.text "telefone", null: false
     t.text "email", null: false
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20171003235047) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["ativo"], name: "index_clientes_on_ativo"
-    t.index ["cidades_id"], name: "index_clientes_on_cidades_id"
+    t.index ["cidade_id"], name: "index_clientes_on_cidade_id"
   end
 
   create_table "estados", force: :cascade do |t|
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20171003235047) do
   end
 
   create_table "usuarios", force: :cascade do |t|
-    t.bigint "clientes_id", null: false
+    t.bigint "cliente_id", null: false
     t.text "nome", null: false
     t.text "telefone", null: false
     t.text "email", null: false
@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 20171003235047) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["ativo"], name: "index_usuarios_on_ativo"
-    t.index ["clientes_id"], name: "index_usuarios_on_clientes_id"
+    t.index ["cliente_id"], name: "index_usuarios_on_cliente_id"
     t.index ["email"], name: "index_usuarios_on_email"
     t.index ["senha"], name: "index_usuarios_on_senha"
     t.index ["token_expiracao_mobile"], name: "index_usuarios_on_token_expiracao_mobile"

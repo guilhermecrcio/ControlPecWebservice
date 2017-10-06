@@ -9,7 +9,7 @@ class Inicial < ActiveRecord::Migration[5.1]
       t.column :nome, :text, null: false
       t.column :latitude, :float, null: false
       t.column :longitude, :float, null: false
-      t.references :estados, null: false, index: true
+      t.references :estado, null: false, index: true
     end
 
     create_table :clientes do |t|
@@ -19,7 +19,7 @@ class Inicial < ActiveRecord::Migration[5.1]
       t.column :nome_fantasia, :text, null: true
       t.column :cpf, :string, null: true, limit: 11
       t.column :cnpj, :string, null: true, limit: 14
-      t.references :cidades, null: false, index: true
+      t.references :cidade, null: false, index: true
       t.column :endereco, :text, null: false
       t.column :telefone, :text, null: false
       t.column :email, :text, null: false
@@ -30,7 +30,7 @@ class Inicial < ActiveRecord::Migration[5.1]
     end
     
     create_table :usuarios do |t|
-      t.references :clientes, null: false, index: true
+      t.references :cliente, null: false, index: true
       t.column :nome, :text, null: false
       t.column :telefone, :text, null: false
       t.column :email, :text, null: false, index: true
