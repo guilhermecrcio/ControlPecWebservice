@@ -8,9 +8,11 @@ class ApplicationController < ActionController::API
     else
       @data = params.as_json
     end
-    
-    @data.delete "controller"
-    @data.delete "action"
+
+    if !@data.nil?
+      @data.delete "controller"
+      @data.delete "action"
+    end
   end
   
 end
