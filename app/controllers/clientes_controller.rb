@@ -1,7 +1,9 @@
 class ClientesController < ApplicationController
+  
+  before_action :getRequestBody
     
   def novo
-    cliente = Cliente.new getRequestBody
+    cliente = Cliente.new @data
     
     if cliente.valid? && cliente.save
       render json: { resultado: cliente }, status: 201

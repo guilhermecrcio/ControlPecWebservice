@@ -1,7 +1,9 @@
 class UsuariosController < ApplicationController
   
+  before_action :getRequestBody
+  
   def novo
-    usuario = Usuario.new getRequestBody
+    usuario = Usuario.new @data
     
     if usuario.valid? && usuario.save
       head :created

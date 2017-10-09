@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post "/usuarios" => "usuarios#novo"
   
   #Usuário
-  post "/login/web" => "sessao#login"
+  post "/login/web" => "sessao#web"
+  post "/login/mobile" => "sessao#mobile"
   
 end

@@ -17,8 +17,8 @@ class Usuario < ApplicationRecord
   validate :forca_senha
   
   def forca_senha
-    unless !self.senha.nil? && self.senha.length >= 8 && self.senha =~ /[a-z]/ && self.senha =~ /[A-Z]/ && self.senha =~ /[0-9]/
-      errors.add :senha, "A Senha deve ter no mínimo 8 caracteres e conter letras minúsculas, letras maiúsculas e números"
+    unless !self.senha.nil? && self.senha.length >= 6 && self.senha =~ /[a-z]/i && self.senha =~ /[0-9]/
+      errors.add :senha, "A Senha deve ter no mínimo 6 caracteres e conter letras e números"
     end
   end
   
