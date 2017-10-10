@@ -1,6 +1,29 @@
 require "digest"
 
 class Usuario < ApplicationRecord
+  
+  @protected_attributes = [
+    "cliente_id",
+    "nome",
+    "telefone",
+    "email",
+    "senha",
+    "ativo",
+    "token_web",
+    "token_mobile",
+    "token_expiracao_mobile"
+  ]
+  
+  def self.new data
+    if data.has_key? "cliente"
+      data["cliente_id"] = data["cliente"]
+      data.delete "cliente"
+    end
+    
+    data = self.protected_attributes data, @protected_attributes
+    
+    super data
+  end
 
   belongs_to :cliente
   
@@ -17,7 +40,7 @@ class Usuario < ApplicationRecord
   validate :forca_senha
   
   def forca_senha
-    unless !self.senha.nil? && self.senha.length >= 6 && self.senha =~ /[a-z]/i && self.senha =~ /[0-9]/
+    unless (!self.senha.nil? && self.senha.length >= 6 && self.senha =~ /[a-z]/i && self.senha =~ /[0-9]/)
       errors.add :senha, "A Senha deve ter no mínimo 6 caracteres e conter letras e números"
     end
   end

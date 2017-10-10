@@ -1,4 +1,30 @@
 class Cliente < ApplicationRecord
+  
+  @protected_attributes = [
+    "tipo",
+    "nome",
+    "razao_social",
+    "nome_fantasia",
+    "cpf",
+    "cnpj",
+    "cidade_id",
+    "endereco",
+    "telefone",
+    "email",
+    "valor_acesso",
+    "ativo"
+  ]
+  
+  def self.new data
+    if data.has_key? "cidade"
+      data["cidade_id"] = data["cidade"]
+      data.delete "cidade"
+    end
+    
+    data = self.protected_attributes data, @protected_attributes
+    
+    super data
+  end
 
   belongs_to :cidade
   
