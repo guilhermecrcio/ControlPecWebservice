@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::API
   
   attr_accessor :data
+  attr_accessor :cliente_id
+  attr_accessor :usuario_id
   
   def authAppToken
     if !request.headers["HTTP_X_APP_TOKEN"].nil?
@@ -15,10 +17,12 @@ class ApplicationController < ActionController::API
   end
   
   def getRequestBody
-    if request.headers["Content-Type"] == "application/json"
-      @data = JSON.parse request.body.read
-    else
-      @data = params.as_json
+    if ["POST", "PUT"].include? request.request_method
+      if request.headers["Content-Type"] == "application/json"
+        @data = JSON.parse request.body.read
+      else
+        @data = params.as_json
+      end
     end
 
     if !@data.nil?
@@ -29,15 +33,15 @@ class ApplicationController < ActionController::API
   
   def authSessaoUsuario
     if !request.headers["HTTP_X_CLIENT"].nil?
-      client = request.headers["HTTP_X_CLIENT"]
+      cliente = request.headers["HTTP_X_CLIENT"]
     else
-      client = request.headers["X_CLIENT"]
+      cliente = request.headers["X_CLIENT"]
     end
     
     if !request.headers["HTTP_X_USER"].nil?
-      user = request.headers["HTTP_X_USER"]
+      usuario = request.headers["HTTP_X_USER"]
     else
-      user = request.headers["X_USER"]
+      usuario = request.headers["X_USER"]
     end
     
     if !request.headers["HTTP_X_ACCESS_TOKEN"].nil?
@@ -52,20 +56,20 @@ class ApplicationController < ActionController::API
       app = request.headers["X_APP"]
     end
     
-    if client.nil? || user.nil? || access_token.nil? || app.nil?
+    if cliente.nil? || usuario.nil? || access_token.nil? || app.nil?
       return false
     end
     
     if app.upcase == "MOBILE"
       usuario = Usuario.find_by(
-        cliente: client,
-        id: user,
+        cliente: cliente,
+        id: usuario,
         token_mobile: access_token
       )
     else
       usuario = Usuario.find_by(
-        cliente: client,
-        id: user,
+        cliente: cliente,
+        id: usuario,
         token_web: access_token
       )
     end
@@ -73,6 +77,8 @@ class ApplicationController < ActionController::API
     if usuario.nil?
       false
     else
+      @cliente_id = cliente
+      @usuario_id = usuario
       true
     end
   end

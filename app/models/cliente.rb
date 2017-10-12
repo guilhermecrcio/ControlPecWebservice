@@ -1,6 +1,6 @@
 class Cliente < ApplicationRecord
   
-  @protected_attributes = [
+  @colunas = [
     "tipo",
     "nome",
     "razao_social",
@@ -21,7 +21,7 @@ class Cliente < ApplicationRecord
       data.delete "cidade"
     end
     
-    data = self.protected_attributes data, @protected_attributes
+    data = self.protected_attributes data, @colunas
     
     super data
   end
