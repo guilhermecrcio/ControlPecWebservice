@@ -1,6 +1,6 @@
 class Cliente < ApplicationRecord
   
-  @colunas = [
+  @@colunas = [
     "tipo",
     "nome",
     "razao_social",
@@ -15,13 +15,17 @@ class Cliente < ApplicationRecord
     "ativo"
   ]
   
+  def self.colunas
+    @@colunas
+  end
+  
   def self.new data
     if data.has_key? "cidade"
       data["cidade_id"] = data["cidade"]
       data.delete "cidade"
     end
     
-    data = self.protected_attributes data, @colunas
+    data = self.protected_attributes data, @@colunas
     
     super data
   end
