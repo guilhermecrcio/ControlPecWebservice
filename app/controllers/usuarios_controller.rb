@@ -1,6 +1,6 @@
 class UsuariosController < ApplicationController
   
-  before_action :getRequestBody
+  before_action :authAppToken, :getRequestBody
   
   def novo
     usuario = Usuario.new @data

@@ -1,5 +1,7 @@
 class CidadesController < ApplicationController
   
+  before_action :authAppToken
+  
   def filtroPorUf
     cidades = Cidade.includes(:estado).joins(:estado).all.where("estados.uf = ?", params[:uf].upcase).order("cidades.nome ASC")
     

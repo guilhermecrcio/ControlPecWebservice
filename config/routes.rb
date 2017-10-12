@@ -10,5 +10,6 @@ Rails.application.routes.draw do
   #Usuário
   post "/login/web" => "sessao#web"
   post "/login/mobile" => "sessao#mobile"
+  post "/empresas" => "empresas#novo"
   
 end

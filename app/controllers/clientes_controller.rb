@@ -1,6 +1,6 @@
 class ClientesController < ApplicationController
   
-  before_action :getRequestBody
+  before_action :authAppToken, :getRequestBody
     
   def novo
     erros = Hash.new

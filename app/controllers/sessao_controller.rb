@@ -2,7 +2,8 @@ require "digest"
 
 class SessaoController < ApplicationController
   
-  before_action :getRequestBody  
+  before_action :authAppToken, :getRequestBody  
+  
   attr_accessor :usuario
   attr_accessor :erros
   
