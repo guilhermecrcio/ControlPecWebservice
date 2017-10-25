@@ -39,6 +39,7 @@ class Categoria < ApplicationRecord
   
   validates :descricao, presence: { message: "Descrição não informada" }
   validates :empresa, presence: { message: "Empresa inválida" }
+  validates :cliente, presence: { message: "Cliente inválido" }
   validates :ativo, inclusion: { in: [true, false], message: "Ativo dever ser true ou false" }
   
 end
