@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171011234433) do
+ActiveRecord::Schema.define(version: 20171025143233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,7 +62,9 @@ ActiveRecord::Schema.define(version: 20171011234433) do
     t.boolean "ativo", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "cliente_id", null: false
     t.index ["ativo"], name: "index_categorias_on_ativo"
+    t.index ["cliente_id"], name: "index_categorias_on_cliente_id"
     t.index ["empresa_id"], name: "index_categorias_on_empresa_id"
   end
 
@@ -101,8 +103,10 @@ ActiveRecord::Schema.define(version: 20171011234433) do
     t.boolean "ativo", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "cliente_id", null: false
     t.index ["ativo"], name: "index_cores_pelagem_on_ativo"
     t.index ["categoria_id"], name: "index_cores_pelagem_on_categoria_id"
+    t.index ["cliente_id"], name: "index_cores_pelagem_on_cliente_id"
     t.index ["empresa_id"], name: "index_cores_pelagem_on_empresa_id"
     t.index ["raca_id"], name: "index_cores_pelagem_on_raca_id"
   end
@@ -140,8 +144,10 @@ ActiveRecord::Schema.define(version: 20171011234433) do
     t.boolean "ativo", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "cliente_id", null: false
     t.index ["ativo"], name: "index_lotes_on_ativo"
     t.index ["categoria_id"], name: "index_lotes_on_categoria_id"
+    t.index ["cliente_id"], name: "index_lotes_on_cliente_id"
     t.index ["empresa_id"], name: "index_lotes_on_empresa_id"
     t.index ["raca_id"], name: "index_lotes_on_raca_id"
   end
@@ -201,8 +207,10 @@ ActiveRecord::Schema.define(version: 20171011234433) do
     t.boolean "ativo", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "cliente_id", null: false
     t.index ["ativo"], name: "index_racas_on_ativo"
     t.index ["categoria_id"], name: "index_racas_on_categoria_id"
+    t.index ["cliente_id"], name: "index_racas_on_cliente_id"
     t.index ["empresa_id"], name: "index_racas_on_empresa_id"
   end
 

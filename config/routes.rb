@@ -16,4 +16,9 @@ Rails.application.routes.draw do
   post "/empresas"          => "empresas#novo"
   put  "/empresas/:empresa" => "empresas#alterar"
   
+  get  "/categorias"            => "categorias#lista"
+  get  "/categorias/:categoria" => "categorias#busca"
+  post "/categorias"            => "categorias#novo"
+  put  "/categorias/:categoria" => "categorias#alterar"
+  
 end
