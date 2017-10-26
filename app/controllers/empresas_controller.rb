@@ -39,12 +39,19 @@ class EmpresasController < ApplicationController
   def lista
     return acessoNegado unless authSessaoUsuario
     
-    empresas = Empresa.includes(:cidade).all.where("cliente_id = ?", @cliente_id)
+    unless params["ativo"].nil?
+      unless ["false", "true"].include? params["ativo"].downcase
+        return head :bad_request
+      end
+      whereAtivo = "AND ativo IS #{params['ativo']}"
+    end
+    
+    empresas = Empresa.includes(:cidade).all.where("cliente_id = ? #{whereAtivo} ", @cliente_id)
     
     if empresas.blank?
       head :not_found
     else
-      empresas = empresas.as_json(include: { cidade: { only: [:nome, :estado_id] } })
+      empresas = empresas.as_json(include: { cidade: @@CidadeInclude })
       empresas.map! do |e|
         estado = Estado.find(e["cidade"]["estado_id"]).as_json
         estado.delete "id"
@@ -64,7 +71,7 @@ class EmpresasController < ApplicationController
     if empresa.nil?
       head :not_found
     else
-      empresa = empresa.as_json(include: { cidade: { only: [:nome, :estado_id] } })
+      empresa = empresa.as_json(include: { cidade: @@CidadeInclude })
       estado = Estado.find(empresa["cidade"]["estado_id"]).as_json
       estado.delete "id"
       empresa["cidade"]["estado"] = estado

@@ -8,7 +8,7 @@ class CidadesController < ApplicationController
     if cidades.blank?
       head :not_found
     else
-      render json: { resultado: cidades.as_json(include: { estado: { only: [:uf, :nome] } }) }, status: 200
+      render json: { resultado: cidades.as_json(include: { estado: @@EstadoInclude }) }, status: 200
     end
   end
   

@@ -39,12 +39,19 @@ class LotesController < ApplicationController
   def lista
     return acessoNegado unless authSessaoUsuario
     
-    lotes = Lote.includes(:empresa, :categoria, :raca).all.where("cliente_id = ?", @cliente_id)
+    unless params["ativo"].nil?
+      unless ["false", "true"].include? params["ativo"].downcase
+        return head :bad_request
+      end
+      whereAtivo = "AND ativo IS #{params['ativo']}"
+    end
+    
+    lotes = Lote.includes(:empresa, :categoria, :raca).all.where("cliente_id = ? #{whereAtivo}", @cliente_id)
     
     if lotes.blank?
       head :not_found
     else
-      lotes = lotes.as_json(include: { empresa: { only: [:nome, :razao_social, :nome_fantasia, :cpf, :cnpj, :cidade_id] }, categoria: { only: [:descricao] }, raca: { only: [:descricao] } })
+      lotes = lotes.as_json(include: { empresa: @@EmpresaInclude, categoria: @@CategoriaInclude, raca: @@RacaInclude })
       
       render json: { resultado: lotes }, status: 200
     end
@@ -58,7 +65,7 @@ class LotesController < ApplicationController
     if lote.nil?
       head :not_found
     else
-      lote = lote.as_json(include: { empresa: { only: [:nome, :razao_social, :nome_fantasia, :cpf, :cnpj, :cidade_id] }, categoria: { only: [:descricao] }, raca: { only: [:descricao] } })
+      lote = lote.as_json(include: { empresa: @@EmpresaInclude, categoria: @@CategoriaInclude, raca: @@RacaInclude })
       
       render json: { resultado: lote }, status: 200
     end

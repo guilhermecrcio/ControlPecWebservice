@@ -39,12 +39,19 @@ class CategoriasController < ApplicationController
   def lista
     return acessoNegado unless authSessaoUsuario
     
-    categorias = Categoria.includes(:empresa).all.where("cliente_id = ?", @cliente_id)
+    unless params["ativo"].nil?
+      unless ["false", "true"].include? params["ativo"].downcase
+        return head :bad_request
+      end
+      whereAtivo = "AND ativo IS #{params['ativo']}"
+    end
+    
+    categorias = Categoria.includes(:empresa).all.where("cliente_id = ? #{whereAtivo}", @cliente_id)
     
     if categorias.blank?
       head :not_found
     else
-      categorias = categorias.as_json(include: { empresa: { only: [:nome, :razao_social, :nome_fantasia, :cpf, :cnpj, :cidade_id] } })
+      categorias = categorias.as_json(include: { empresa: @@EmpresaInclude })
       categorias.map! do |c|
         cidade = Cidade.find(c["empresa"]["cidade_id"]).as_json
         cidade.delete "id"
@@ -67,7 +74,7 @@ class CategoriasController < ApplicationController
     if categoria.nil?
       head :not_found
     else
-      categoria = categoria.as_json(include: { empresa: { only: [:nome, :razao_social, :nome_fantasia, :cpf, :cnpj, :cidade_id] } })
+      categoria = categoria.as_json(include: { empresa: @@EmpresaInclude })
       
       cidade = Cidade.find(categoria["empresa"]["cidade_id"]).as_json
       cidade.delete "id"

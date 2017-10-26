@@ -4,6 +4,12 @@ class ApplicationController < ActionController::API
   attr_accessor :cliente_id
   attr_accessor :usuario_id
   
+  @@EmpresaInclude   = { only: [:tipo, :nome, :razao_social, :nome_fantasia, :cpf, :cnpj, :cidade_id, :ativo] }
+  @@EstadoInclude    = { only: [:uf, :nome] }
+  @@CidadeInclude    = { only: [:nome, :estado_id, :latitude, :longitude] }
+  @@CategoriaInclude = { only: [:descricao, :ativo] }
+  @@RacaInclude      = { only: [:descricao, :ativo] }
+  
   def authAppToken
     if !request.headers["HTTP_X_APP_TOKEN"].nil?
       app_token = request.headers["HTTP_X_APP_TOKEN"]

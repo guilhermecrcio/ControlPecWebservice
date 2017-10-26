@@ -39,12 +39,19 @@ class RacasController < ApplicationController
   def lista
     return acessoNegado unless authSessaoUsuario
     
-    racas = Raca.includes(:empresa, :categoria).all.where("cliente_id = ?", @cliente_id)
+    unless params["ativo"].nil?
+      unless ["false", "true"].include? params["ativo"].downcase
+        return head :bad_request
+      end
+      whereAtivo = "AND ativo IS #{params['ativo']}"
+    end
+    
+    racas = Raca.includes(:empresa, :categoria).all.where("cliente_id = ? #{whereAtivo}", @cliente_id)
     
     if racas.blank?
       head :not_found
     else
-      racas = racas.as_json(include: { empresa: { only: [:nome, :razao_social, :nome_fantasia, :cpf, :cnpj, :cidade_id] }, categoria: { only: [:descricao] } })
+      racas = racas.as_json(include: { empresa: @@EmpresaInclude, categoria: @@CategoriaInclude })  
       
       render json: { resultado: racas }, status: 200
     end
@@ -58,7 +65,7 @@ class RacasController < ApplicationController
     if raca.nil?
       head :not_found
     else
-      raca = raca.as_json(include: { empresa: { only: [:nome, :razao_social, :nome_fantasia, :cpf, :cnpj, :cidade_id] }, categoria: { only: [:descricao] } })
+      raca = raca.as_json(include: { empresa: @@EmpresaInclude, categoria: @@CategoriaInclude })
       
       render json: { resultado: raca }, status: 200
     end
