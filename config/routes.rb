@@ -26,4 +26,9 @@ Rails.application.routes.draw do
   post "/racas"       => "racas#novo"
   put  "/racas/:raca" => "racas#alterar"
   
+  get  "/lotes"       => "lotes#lista"
+  get  "/lotes/:lote" => "lotes#busca"
+  post "/lotes"       => "lotes#novo"
+  put  "/lotes/:lote" => "lotes#alterar"
+  
 end

@@ -2,7 +2,7 @@ require "digest"
 
 class Usuario < ApplicationRecord
   
-  @@colunas = [
+  @protected_attributes = [
     "cliente_id",
     "nome",
     "telefone",
@@ -14,20 +14,9 @@ class Usuario < ApplicationRecord
     "token_expiracao_mobile"
   ]
   
-  def self.colunas
-    @@colunas
-  end
-  
-  def self.new data
-    if data.has_key? "cliente"
-      data["cliente_id"] = data["cliente"]
-      data.delete "cliente"
-    end
-    
-    data = self.protected_attributes data, @@colunas
-    
-    super data
-  end
+  @from_to = {
+    "cliente_id": "cliente"
+  }
 
   belongs_to :cliente
   

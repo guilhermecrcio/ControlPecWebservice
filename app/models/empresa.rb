@@ -1,6 +1,6 @@
 class Empresa < ApplicationRecord
   
-  @@colunas = [
+  @protected_attributes = [
     "ativo",
     "cidade_id",
     "cliente_id",
@@ -15,31 +15,10 @@ class Empresa < ApplicationRecord
     "tipo"
   ]
   
-  def self.colunas
-    @@colunas
-  end
-  
-  def self.new data
-    if data.has_key? "cidade"
-      data["cidade_id"] = data["cidade"]
-      data.delete "cidade"
-    end
-    
-    data = self.protected_attributes data, @@colunas
-    
-    super data
-  end
-  
-  def update_attributes data
-    if data.has_key? "cidade"
-      data["cidade_id"] = data["cidade"]
-      data.delete "cidade"  
-    end
-    
-    data = Empresa.protected_attributes data, Empresa.colunas
-    
-    super data
-  end
+  @from_to = {
+    "cidade_id": "cidade",
+    "cliente_id": "cliente"
+  }
   
   belongs_to :cidade
   belongs_to :cliente
