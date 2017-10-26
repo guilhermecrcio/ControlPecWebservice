@@ -21,4 +21,9 @@ Rails.application.routes.draw do
   post "/categorias"            => "categorias#novo"
   put  "/categorias/:categoria" => "categorias#alterar"
   
+  get  "/racas"       => "racas#lista"
+  get  "/racas/:raca" => "racas#busca"
+  post "/racas"       => "racas#novo"
+  put  "/racas/:raca" => "racas#alterar"
+  
 end
