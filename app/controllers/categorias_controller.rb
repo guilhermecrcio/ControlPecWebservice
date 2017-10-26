@@ -52,15 +52,6 @@ class CategoriasController < ApplicationController
       head :not_found
     else
       categorias = categorias.as_json(include: { empresa: @@EmpresaInclude })
-      categorias.map! do |c|
-        cidade = Cidade.find(c["empresa"]["cidade_id"]).as_json
-        cidade.delete "id"
-        c["empresa"]["cidade"] = cidade
-        estado = Estado.find(cidade["estado_id"]).as_json
-        estado.delete "id"
-        c["empresa"]["cidade"]["estado"] = estado
-        c
-      end
       
       render json: { resultado: categorias }, status: 200
     end
@@ -75,13 +66,6 @@ class CategoriasController < ApplicationController
       head :not_found
     else
       categoria = categoria.as_json(include: { empresa: @@EmpresaInclude })
-      
-      cidade = Cidade.find(categoria["empresa"]["cidade_id"]).as_json
-      cidade.delete "id"
-      categoria["empresa"]["cidade"] = cidade
-      estado = Estado.find(cidade["estado_id"]).as_json
-      estado.delete "id"
-      categoria["empresa"]["cidade"]["estado"] = estado
       
       render json: { resultado: categoria }, status: 200
     end
