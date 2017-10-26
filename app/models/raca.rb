@@ -52,13 +52,17 @@ class Raca < ApplicationRecord
   validates :empresa, presence: { message: "Empresa inválida" }
   validates :cliente, presence: { message: "Cliente inválido" }
   validates :ativo, inclusion: { in: [true, false], message: "Ativo dever ser true ou false" }
-  validate :categoria_cliente, if: Proc.new { |c| !c.cliente_id.nil? && !c.categoria_id.nil? }
+  validate :categoria_cliente, if: Proc.new { |c| !c.cliente_id.nil? }
   
   def categoria_cliente
-    categoria = Categoria.find_by(id: self.categoria_id, cliente_id: self.cliente_id)
-    
-    if categoria.nil?
+    if self.categoria_id.nil?
       errors.add :categoria, "Categoria inválida"
+    else
+      categoria = Categoria.find_by(id: self.categoria_id, cliente_id: self.cliente_id)
+      
+      if categoria.nil?
+        errors.add :categoria, "Categoria inválida"
+      end
     end
   end
   
