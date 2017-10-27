@@ -31,4 +31,9 @@ Rails.application.routes.draw do
   post "/lotes" => "lotes#novo"
   put  "/lotes/:lote" => "lotes#alterar"
   
+  get  "/cores_pelagem(/ativo/:ativo)(/empresa/:empresa)(/categoria/:categoria)(/raca/:raca)" => "cores_pelagem#lista"
+  get  "/cores_pelagem/:cor_pelagem" => "cores_pelagem#busca"
+  post "/cores_pelagem" => "cores_pelagem#novo"
+  put  "/cores_pelagem/:cor_pelagem" => "cores_pelagem#alterar"
+  
 end
