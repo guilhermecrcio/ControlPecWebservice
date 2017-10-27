@@ -46,7 +46,15 @@ class RacasController < ApplicationController
       whereAtivo = "AND ativo IS #{params['ativo']}"
     end
     
-    racas = Raca.includes(:empresa, :categoria).all.where("cliente_id = ? #{whereAtivo}", @cliente_id)
+    unless params["empresa"].nil?
+      whereEmpresa = "AND empresa_id = #{params['empresa']}"
+    end
+    
+    unless params["categoria"].nil?
+      whereCategoria = "AND categoria_id = #{params['categoria']}"
+    end
+    
+    racas = Raca.includes(:empresa, :categoria).all.where("cliente_id = ? #{whereAtivo} #{whereEmpresa} #{whereCategoria}", @cliente_id)
     
     if racas.blank?
       head :not_found

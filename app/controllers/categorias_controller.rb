@@ -46,7 +46,11 @@ class CategoriasController < ApplicationController
       whereAtivo = "AND ativo IS #{params['ativo']}"
     end
     
-    categorias = Categoria.includes(:empresa).all.where("cliente_id = ? #{whereAtivo}", @cliente_id)
+    unless params["empresa"].nil?
+      whereEmpresa = "AND empresa_id = #{params['empresa']}"
+    end
+    
+    categorias = Categoria.includes(:empresa).all.where("cliente_id = ? #{whereAtivo} #{whereEmpresa}", @cliente_id)
     
     if categorias.blank?
       head :not_found

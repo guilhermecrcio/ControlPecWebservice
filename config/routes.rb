@@ -8,27 +8,27 @@ Rails.application.routes.draw do
   post "/usuarios" => "usuarios#novo"
   
   #Usuário
-  post "/login/web"    => "sessao#web"
+  post "/login/web" => "sessao#web"
   post "/login/mobile" => "sessao#mobile"
   
   get  "/empresas(/ativo/:ativo)" => "empresas#lista"
-  get  "/empresas/:empresa"       => "empresas#busca"
-  post "/empresas"                => "empresas#novo"
-  put  "/empresas/:empresa"       => "empresas#alterar"
+  get  "/empresas/:empresa" => "empresas#busca"
+  post "/empresas" => "empresas#novo"
+  put  "/empresas/:empresa" => "empresas#alterar"
   
-  get  "/categorias(/ativo/:ativo)" => "categorias#lista"
-  get  "/categorias/:categoria"     => "categorias#busca"
-  post "/categorias"                => "categorias#novo"
-  put  "/categorias/:categoria"     => "categorias#alterar"
+  get  "/categorias(/ativo/:ativo)(/empresa/:empresa)" => "categorias#lista"
+  get  "/categorias/:categoria" => "categorias#busca"
+  post "/categorias" => "categorias#novo"
+  put  "/categorias/:categoria" => "categorias#alterar"
   
-  get  "/racas(/ativo/:ativo)" => "racas#lista"
-  get  "/racas/:raca"          => "racas#busca"
-  post "/racas"                => "racas#novo"
-  put  "/racas/:raca"          => "racas#alterar"
+  get  "/racas(/ativo/:ativo)(/empresa/:empresa)(/categoria/:categoria)" => "racas#lista"
+  get  "/racas/:raca" => "racas#busca"
+  post "/racas" => "racas#novo"
+  put  "/racas/:raca" => "racas#alterar"
   
-  get  "/lotes(/ativo/:ativo)" => "lotes#lista"
-  get  "/lotes/:lote"          => "lotes#busca"
-  post "/lotes"                => "lotes#novo"
-  put  "/lotes/:lote"          => "lotes#alterar"
+  get  "/lotes(/ativo/:ativo)(/empresa/:empresa)(/categoria/:categoria)(/raca/:raca)" => "lotes#lista"
+  get  "/lotes/:lote" => "lotes#busca"
+  post "/lotes" => "lotes#novo"
+  put  "/lotes/:lote" => "lotes#alterar"
   
 end

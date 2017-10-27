@@ -46,7 +46,19 @@ class LotesController < ApplicationController
       whereAtivo = "AND ativo IS #{params['ativo']}"
     end
     
-    lotes = Lote.includes(:empresa, :categoria, :raca).all.where("cliente_id = ? #{whereAtivo}", @cliente_id)
+    unless params["empresa"].nil?
+      whereEmpresa = "AND empresa_id = #{params['empresa']}"
+    end
+    
+    unless params["categoria"].nil?
+      whereCategoria = "AND categoria_id = #{params['categoria']}"
+    end
+    
+    unless params["raca"].nil?
+      whereRaca = "AND raca_id = #{params['raca']}"
+    end
+    
+    lotes = Lote.includes(:empresa, :categoria, :raca).all.where("cliente_id = ? #{whereAtivo} #{whereEmpresa} #{whereCategoria} #{whereRaca}", @cliente_id)
     
     if lotes.blank?
       head :not_found
