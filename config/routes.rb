@@ -36,4 +36,9 @@ Rails.application.routes.draw do
   post "/cores_pelagem" => "cores_pelagem#novo"
   put  "/cores_pelagem/:cor_pelagem" => "cores_pelagem#alterar"
   
+  get  "/motivos_morte(/ativo/:ativo)" => "motivos_morte#lista"
+  get  "/motivos_morte/:motivo_morte" => "motivos_morte#busca"
+  post "/motivos_morte" => "motivos_morte#novo"
+  put  "/motivos_morte/:motivo_morte" => "motivos_morte#alterar"
+  
 end
