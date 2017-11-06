@@ -4,11 +4,14 @@ class ApplicationController < ActionController::API
   attr_accessor :cliente_id
   attr_accessor :usuario_id
   
-  @@EmpresaInclude   = { only: [:tipo, :nome, :razao_social, :nome_fantasia, :cpf, :cnpj, :cidade_id, :ativo] }
-  @@EstadoInclude    = { only: [:uf, :nome] }
-  @@CidadeInclude    = { only: [:nome, :estado_id, :latitude, :longitude] }
-  @@CategoriaInclude = { only: [:descricao, :ativo] }
-  @@RacaInclude      = { only: [:descricao, :ativo] }
+  @@CategoriaInclude   = { only: [:descricao, :ativo, :empresa_id] }
+  @@CidadeInclude      = { only: [:nome, :latitude, :longitude, :estado_id] }
+  @@CorPelagemInclude  = { only: [:descricao, :ativo, :categoria_id, :empresa_id, :raca_id] }
+  @@EmpresaInclude     = { only: [:tipo, :nome, :cpf, :razao_social, :nome_fantasia, :cnpj, :ativo, :cidade_id] }
+  @@EstadoInclude      = { only: [:uf, :nome] }
+  @@LoteInclude        = { only: [:descricao, :ativo, :categoria_id, :empresa_id, :raca_id] }
+  @@MotivoMorteInclude = { only: [:descricao, :ativo] }
+  @@RacaInclude        = { only: [:descricao, :ativo, :categoria_id, :empresa_id] }
   
   def authAppToken
     if !request.headers["HTTP_X_APP_TOKEN"].nil?

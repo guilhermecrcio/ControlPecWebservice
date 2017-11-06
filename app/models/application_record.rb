@@ -88,4 +88,46 @@ class ApplicationRecord < ActiveRecord::Base
     end
   end
   
+  def validate_cor_pelagem_cliente
+    unless self.cliente_id.nil?
+      if self.cor_pelagem_id.nil?
+        errors.add :cor_pelagem, "Cor de Pelagem inválida"
+      else
+        cor_pelagem = CorPelagem.find_by(id: self.cor_pelagem_id, cliente_id: self.cliente_id)
+        
+        if cor_pelagem.nil?
+          errors.add :cor_pelagem, "Cor de Pelagem inválida"
+        end
+      end
+    end
+  end
+  
+  def validate_motivo_morte_cliente
+    unless self.cliente_id.nil?
+      if self.motivo_morte_id.nil?
+        errors.add :motivo_morte, "Motivo da Morte inválido"
+      else
+        motivo_morte = MotivoMorte.find_by(id: self.motivo_morte_id, cliente_id: self.cliente_id)
+        
+        if motivo_morte.nil?
+          errors.add :motivo_morte, "Motivo da Morte inválido"
+        end
+      end
+    end
+  end
+  
+  def validate_lote_cliente
+    unless self.cliente_id.nil?
+      if self.lote_id.nil?
+        errors.add :lote, "Lote inválido"
+      else
+        lote = Lote.find_by(id: self.lote_id, cliente_id: self.cliente_id)
+        
+        if lote.nil?
+          errors.add :lote, "Lote inválido"
+        end
+      end
+    end
+  end
+  
 end

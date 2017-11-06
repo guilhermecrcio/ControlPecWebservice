@@ -41,4 +41,9 @@ Rails.application.routes.draw do
   post "/motivos_morte" => "motivos_morte#novo"
   put  "/motivos_morte/:motivo_morte" => "motivos_morte#alterar"
   
+  get  "/animais(/ativo/:ativo)(/empresa/:empresa)(/categoria/:categoria)(/cor_pelagem/:cor_pelagem)(/lote/:lote)(/motivo_morte/:motivo_morte)(/raca/:raca)(/gado_leiteiro/:gado_leiteiro)(/gado_morto/:gado_morto)(/reprodutor/:reprodutor)(/sexo/:sexo)(/data_morte_inicial/:data_morte_inicial/data_morte_final/:data_morte_final)(/data_nascimento_inicial/:data_nascimento_inicial/data_nascimento_final/:data_nascimento_final)(/data_venda_inicial/:data_venda_inicial/data_venda_final/:data_venda_final)/pagina/:pagina" => "animais#lista"
+  get  "/animais/:animal" => "animais#busca"
+  post "/animais" => "animais#novo"
+  put  "/animais/:animal" => "animais#alterar"
+  
 end

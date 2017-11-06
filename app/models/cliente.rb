@@ -28,7 +28,7 @@ class Cliente < ApplicationRecord
   validates :email, presence: { message: "Email não informado" }
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: "Email inválido" }, if: Proc.new { |c| !self.email.nil? }
   validates :valor_acesso, numericality: { message: "Valor de Acesso deve ser númerico" }
-  validates :ativo, inclusion: { in: [true, false], message: "Ativo dever ser true ou false" }
+  validates :ativo, inclusion: { in: [true, false], message: "Ativo deve ser true ou false" }
   
   validate :pessoa_fisica, if: Proc.new { |c| c.tipo == 0 }
   validate :pessoa_juridica, if: Proc.new { |c| c.tipo == 1 }

@@ -28,7 +28,7 @@ class Usuario < ApplicationRecord
   validates :email, presence: { message: "Email não informado" }
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: "Email inválido" }, if: Proc.new { |c| !c.email.nil? }
   validates :email, uniqueness: { message: "Email indisponível" }, if: Proc.new { |c| !c.email.nil? }
-  validates :ativo, inclusion: { in: [true, false], message: "Ativo dever ser true ou false" }
+  validates :ativo, inclusion: { in: [true, false], message: "Ativo deve ser true ou false" }
   
   validate :forca_senha
   
